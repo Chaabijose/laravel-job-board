@@ -12,4 +12,5 @@ class JobController extends Controller
         $jobs = Job::all();
         return view("job/index", ['jobs' => $jobs, 'name' => 'CHAABI']);
     }
+
 }
