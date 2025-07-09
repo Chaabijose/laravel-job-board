@@ -1,3 +1,3 @@
 <x-layout :title="$pageTitle">
-    <h2>About Page</h2>
+    <h1>View Tags</h1>
 </x-layout>

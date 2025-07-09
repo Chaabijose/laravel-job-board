@@ -1,5 +1,5 @@
 <x-layout title="Blog">
-    <h2>{{ $post->title }}</h2>
+    <h1 class="text-3xl">{{ $post->title }}</h1>
     <p>{{ $post->body }}</p>
-    <p>{{ $post->author }}</p>
+    <p class="text-2xl">{{ $post->author }}</p>
 </x-layout>
