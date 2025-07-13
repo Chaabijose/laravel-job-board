@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreCommentRequest;
 use App\Models\Comment;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -12,10 +14,7 @@ class CommentController extends Controller
      */
     public function index()
     {
-        // Eloquent ORM => get all data
-        $comments = Comment::all();
-        // pass the data to the view
-        return view("comment.index", ["comments" => $comments]);
+        return redirect("/post");
     }
 
     /**
@@ -23,17 +22,26 @@ class CommentController extends Controller
      */
     public function create()
     {
-        Comment::factory(5)->create();
-
-        return view("comment/create", ["pageTitle" => "Comments - Create  Comment"]);
+        return redirect("/post");
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreCommentRequest $request)
     {
-        //TODO: this will be completed in the form section
+        $post = Post::findOrFail($request->input("post_id"));
+
+        $comment = new Comment();
+        $comment->author = $request->input("author");
+        $comment->content = $request->input("content");
+        $comment->post_id = $request->input("post_id");
+
+        $comment->save();
+
+        return redirect("/post/{$post->id}")->with('success', 'Comment added successfully.');
+
+
     }
 
     /**
@@ -41,8 +49,7 @@ class CommentController extends Controller
      */
     public function show(string $id)
     {
-        $comments = Comment::find($id);
-        return view("comment/list", ["comments" => $comments, "pageTitle" => "Comments"]);
+        return redirect("/post");
     }
 
     /**
